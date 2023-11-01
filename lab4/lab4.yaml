@@ -1,0 +1,64 @@
+name: lab4
+
+mgmt:
+  network: statics
+  ipv4_subnet: 172.20.20.0/24
+
+topology:
+  nodes:
+    R01.NY: #10.10.10.1/32
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.2
+
+    R01.LND: #10.10.10.2/32
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.3
+
+    R01.HKI: #10.10.10.3/32
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.4
+
+    R01.SPB: #10.10.10.4/32
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.5
+
+    R01.LBN: #10.10.10.5/32
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.6
+
+    R01.SVL: #10.10.10.6/32
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.7
+
+    PC1:
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.8
+
+    PC2:
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.9
+
+    PC3:
+      kind: vr-mikrotik_ros
+      image: vrnetlab/vr-routeros:6.47.9
+      mgmt_ipv4: 172.20.20.10
+  
+
+  links: 
+    - endpoints: ["R01.NY:eth1","PC2:eth1"]      #192.168.20.10/24 - 192.168.20.11/24
+    - endpoints: ["R01.NY:eth3","R01.LND:eth3"]  #10.10.1.1/30 - 10.10.1.2/30
+    - endpoints: ["R01.LND:eth1","R01.HKI:eth2"] #10.10.2.1/30 - 10.10.2.2/30   
+    - endpoints: ["R01.LND:eth2","R01.LBN:eth1"] #10.10.4.1/30 - 10.10.4.2/30
+    - endpoints: ["R01.LBN:eth2","R01.HKI:eth1"] #10.10.5.2/30 - 10.10.5.1/30
+    - endpoints: ["R01.LBN:eth3","R01.SVL:eth3"] #10.10.6.1/30 - 10.10.6.2/30
+    - endpoints: ["R01.SVL:eth1","PC3:eth1"]     #192.168.30.10/24 - 192.168.30.11/24
+    - endpoints: ["R01.HKI:eth3","R01.SPB:eth3"] #10.10.3.1/30 - 10.10.3.2/30
+    - endpoints: ["R01.SPB:eth1","PC1:eth1"]     #192.168.10.10/24 - 192.168.10.11/24
